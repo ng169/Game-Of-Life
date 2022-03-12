@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <sys/select.h>
 #include <unistd.h>
+#include <time.h>
 #define MAX 50
 
 int grid[MAX][MAX];
@@ -10,6 +11,7 @@ void game();
 void display();
 void randGrid();
 void inputGrid();
+void evolve();
 int kbhit();
 int main()
 {
@@ -17,7 +19,7 @@ int main()
     system("clear");
     printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n");
     usleep(600000);
-    printf("Enter:\n1) Random input\n2) Input from file\n3) Popular patterns\n");
+    printf("Enter:\n1) Random input\n2) Input from file\n");
     printf("Enter choice: ");
     scanf("%d", &choice);
     printf("Enter number of rows and columns: ");
@@ -43,7 +45,6 @@ void inputGrid()
     int i, j;
     FILE *file;
     char c;
-    file = fopen("input.txt", "r");
     if (file == NULL)
     {
         printf("No file found\n");
@@ -60,6 +61,7 @@ void inputGrid()
                 j--;
         }
     }
+    fclose(file);
 }
 
 void display()
@@ -130,6 +132,7 @@ void game()
 void randGrid()
 {
     int i, j;
+    srand(time(0));
     for (i = 0; i < rows; i++)
     {
         for (j = 0; j < cols; j++)
