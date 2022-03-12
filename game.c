@@ -1,12 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <sys/select.h>
-
-#ifdef _WIN32
-#include <Windows.h>
-#else
 #include <unistd.h>
-#endif
 #define MAX 50
 
 int grid[MAX][MAX];
@@ -14,13 +9,13 @@ int cols, rows;
 void game();
 void display();
 void randGrid();
-void inputGrid(char[]);
+void inputGrid();
 int kbhit();
 int main()
 {
     int choice, opt;
     system("clear");
-    printf("\t\t\t\t\t CONWAY'S GAME OF LIFE\n");
+    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n");
     usleep(600000);
     printf("Enter:\n1) Random input\n2) Input from file\n3) Popular patterns\n");
     printf("Enter choice: ");
@@ -33,29 +28,8 @@ int main()
         randGrid();
         break;
     case 2:
-        inputGrid("input.txt");
+        inputGrid();
         break;
-    case 3:
-    {
-
-        printf("Enter 1) STILL LIFES\t2) OSCILLATORS\t3) SPACESHIPS\n");
-        scanf("%d", &opt);
-        switch (opt)
-        {
-        case 1:
-            inputGrid("stilllife.txt");
-            break;
-        case 2:
-            inputGrid("oscillators.txt");
-            break;
-        case 3:
-            inputGrid("gliders.txt");
-            break;
-        default:
-            printf("Invalid input\n");
-            break;
-        }
-    }
     default:
         printf("Invalid choice\n");
         break;
@@ -64,12 +38,12 @@ int main()
 
     return 0;
 }
-void inputGrid(char fname[])
+void inputGrid()
 {
     int i, j;
     FILE *file;
     char c;
-    file = fopen(fname, "r");
+    file = fopen("input.txt", "r");
     if (file == NULL)
     {
         printf("No file found\n");
@@ -92,8 +66,10 @@ void display()
 {
     int i, j;
     system("clear");
+    printf("\n\t\t\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n\n\n");
     for (i = 0; i < rows; i++)
     {
+        printf("\t\t\t\t\t\t\t\t\t");
         for (j = 0; j < cols; j++)
         {
             if (grid[i][j] == 1)
@@ -114,11 +90,15 @@ void evolve()
         for (j = 0; j < cols; j++)
         {
             n = 0;
-            for (yc = i - 1; yc <= i + 1; yc++)
+            for (xc = i - 1; xc <= i + 1; xc++)
             {
-                for (xc = j - 1; xc <= j + 1; xc++)
+                if (xc < 0 || xc > rows)
+                    continue;
+                for (yc = j - 1; yc <= j + 1; yc++)
                 {
-                    if (grid[(yc + rows) % rows][(xc + cols) % cols] == 1)
+                    if (yc < 0 || yc > cols)
+                        continue;
+                    if (grid[xc][yc] == 1)
                         n++;
                 }
             }
@@ -137,10 +117,8 @@ void evolve()
 void game()
 {
     int n = 0;
-    while (1)
+    while (!kbhit())
     {
-        if (kbhit())
-            break;
         display();
         printf("\nGeneration: %d\n", n);
         sleep(1);
