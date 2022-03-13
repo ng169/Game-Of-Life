@@ -48,6 +48,7 @@ void inputGrid()
     int i, j;
     FILE *file;
     char c;
+    file = fopen("input.txt", "r");
     if (file == NULL)
     {
         printf("No file found\n");
