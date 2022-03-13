@@ -3,6 +3,9 @@
 #include <sys/select.h>
 #include <unistd.h>
 #include <time.h>
+#define ANSI_COLOR_RED "\x1b[31m"
+#define ANSI_COLOR_GREEN "\x1b[32m"
+#define ANSI_COLOR_RESET "\x1b[0m"
 #define MAX 50
 
 int grid[MAX][MAX];
@@ -17,7 +20,7 @@ int main()
 {
     int choice, opt;
     system("clear");
-    printf("\t\t\t\t\t\t\t\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n");
+    printf("\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n");
     usleep(600000);
     printf("Enter:\n1) Random input\n2) Input from file\n");
     printf("Enter choice: ");
@@ -68,16 +71,16 @@ void display()
 {
     int i, j;
     system("clear");
-    printf("\n\t\t\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n\n\n");
+    printf("\n\n\t\t\t\t\t\t\t\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n\n\n");
     for (i = 0; i < rows; i++)
     {
         printf("\t\t\t\t\t\t\t\t\t");
         for (j = 0; j < cols; j++)
         {
             if (grid[i][j] == 1)
-                printf("#   ");
+                printf(ANSI_COLOR_GREEN "#   " ANSI_COLOR_RESET);
             else
-                printf("-   ");
+                printf(ANSI_COLOR_RED "-   " ANSI_COLOR_RESET);
         }
         printf("\n");
     }
