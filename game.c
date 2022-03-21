@@ -112,7 +112,7 @@ void display()
     printf("\n\n\t\t\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n\n\n");
     for (i = 0; i < rows; i++)
     {
-        printf("\t\t\t\t\t\t\t\t");
+        printf("\t\t\t\t\t\t");
         for (j = 0; j < cols; j++)
         {
             if (grid[i][j] == 1)
