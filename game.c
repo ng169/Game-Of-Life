@@ -22,9 +22,9 @@ int kbhit();
 
 int main()
 {
-    int choice, opt;
+    int choice;
     system("clear");
-    printf("\n\n\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n");
+    printf("\n\n\t\t\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n");
     usleep(600000);
     printf("\nEnter:\n1) Random input\n2) Input from file\n");
     printf("\nEnter choice: ");
@@ -109,10 +109,10 @@ void display()
 {
     int i, j;
     system("clear");
-    printf("\n\n\t\t\t\tCONWAY'S GAME OF LIFE\n\n\n");
+    printf("\n\n\t\t\t\t\t\t\t\t\tCONWAY'S GAME OF LIFE\n\n\n");
     for (i = 0; i < rows; i++)
     {
-        printf("\t\t\t");
+        printf("\t\t\t\t\t\t\t\t");
         for (j = 0; j < cols; j++)
         {
             if (grid[i][j] == 1)
